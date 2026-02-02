@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@layer base {
+    :root {
+        --foreground-rgb: 26, 26, 26;
+        --background-start-rgb: 253, 252, 251;
+        --background-end-rgb: 255, 255, 255;
+    }
+
+    html {
+        @apply scroll-smooth text-base;
+    }
+
+    body {
+        background: linear-gradient(to bottom,
+                transparent,
+                rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+        color: rgb(var(--foreground-rgb));
+        @apply antialiased overflow-x-hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading tracking-wide;
+    }
+
+    /* Luxury Selection */
+    ::selection {
+        @apply bg-champagne-gold/30 text-dark-luxury;
+    }
+
+    /* Luxury Scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-pearl-white;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-champagne-gold/50 rounded-full hover:bg-champagne-gold/80 transition-colors;
+    }
+
+    /* Focus Styles for Accessibility - Gold Outline */
+    :focus-visible {
+        @apply outline-none ring-2 ring-champagne-gold ring-offset-2 ring-offset-pearl-white;
+        box-shadow: 0 0 0 4px rgba(236, 217, 176, 0.4);
+    }
+
+    /* Reduced Motion Preference */
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        ::before,
+        ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+@layer utilities {
+    .text-luxury-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-champagne-gold via-rose-gold to-champagne-gold;
+    }
+
+    .bg-luxury-gradient {
+        @apply bg-gradient-to-r from-champagne-gold via-rose-gold to-champagne-gold;
+    }
+
+    .luxury-border {
+        @apply border border-champagne-gold/30;
+    }
+}

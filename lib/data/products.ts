@@ -6,8 +6,8 @@ export const products: Product[] = [
         id: "glitter-gold-001",
         name: "Golden Hour Shimmer Pot",
         price: 32.00,
-        image: "/images/products/gold-pot.jpg",
-        images: ["/images/products/gold-pot.jpg", "/images/products/gold-pot-2.jpg", "/images/products/gold-pot-swatch.jpg"],
+        image: "/images/products/product_glitter_gold_01.png",
+        images: ["/images/products/product_glitter_gold_01.png"],
         category: "Eyes",
         rating: 4.9,
         reviews: 245,
@@ -21,8 +21,8 @@ export const products: Product[] = [
         id: "glitter-eyes-002",
         name: "Midnight Sparkle Palette",
         price: 58.00,
-        image: "/images/products/palette.jpg",
-        images: ["/images/products/palette.jpg", "/images/products/palette-open.jpg"],
+        image: "/images/products/product_glitter_gold_01.png",
+        images: ["/images/products/product_glitter_gold_01.png"],
         category: "Eyes",
         rating: 5.0,
         reviews: 89,
@@ -35,7 +35,7 @@ export const products: Product[] = [
         id: "glitter-eyes-003",
         name: "Champagne Pop Gel",
         price: 22.00,
-        image: "/images/products/gel.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Eyes",
         rating: 4.5,
         reviews: 112,
@@ -50,7 +50,7 @@ export const products: Product[] = [
         price: 24.00,
         salePrice: 19.00,
         onSale: true,
-        image: "/images/products/liner.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Eyes",
         rating: 4.6,
         reviews: 78,
@@ -63,7 +63,7 @@ export const products: Product[] = [
         id: "glitter-eyes-005",
         name: "Stardust Loose Pigment",
         price: 18.00,
-        image: "/images/products/stardust.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Eyes",
         rating: 4.4,
         reviews: 56,
@@ -76,7 +76,7 @@ export const products: Product[] = [
         id: "glitter-eyes-006",
         name: "Holographic Eye Topper",
         price: 26.00,
-        image: "/images/products/holo-eye.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Eyes",
         rating: 4.7,
         reviews: 134,
@@ -92,8 +92,8 @@ export const products: Product[] = [
         price: 28.00,
         salePrice: 24.00,
         onSale: true,
-        image: "/images/products/rose-lip.jpg",
-        images: ["/images/products/rose-lip.jpg", "/images/products/rose-lip-swatch.jpg"],
+        image: "/images/products/product_glitter_rose_02.png",
+        images: ["/images/products/product_glitter_rose_02.png"],
         category: "Lips",
         rating: 4.9,
         reviews: 320,
@@ -106,7 +106,7 @@ export const products: Product[] = [
         id: "glitter-lips-002",
         name: "Crystal Clear Gloss",
         price: 26.00,
-        image: "/images/products/gloss.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Lips",
         rating: 4.8,
         reviews: 156,
@@ -118,7 +118,7 @@ export const products: Product[] = [
         id: "glitter-lips-003",
         name: "Ruby Dust Lipstick",
         price: 34.00,
-        image: "/images/products/lipstick.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Lips",
         rating: 4.7,
         reviews: 98,
@@ -131,7 +131,7 @@ export const products: Product[] = [
         id: "glitter-lips-004",
         name: "Diamond Drip Lip Oil",
         price: 25.00,
-        image: "/images/products/lip-oil.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Lips",
         rating: 4.8,
         reviews: 210,
@@ -144,7 +144,7 @@ export const products: Product[] = [
         id: "glitter-lips-005",
         name: "Sunset Shimmer Balm",
         price: 20.00,
-        image: "/images/products/balm.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Lips",
         rating: 4.5,
         reviews: 67,
@@ -159,7 +159,7 @@ export const products: Product[] = [
         id: "glitter-face-001",
         name: "Diamond Dust Highlighter",
         price: 38.00,
-        image: "/images/products/highlighter.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Face",
         rating: 4.6,
         reviews: 189,
@@ -172,7 +172,7 @@ export const products: Product[] = [
         id: "glitter-face-002",
         name: "Pearl Setting Spray",
         price: 30.00,
-        image: "/images/products/spray.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Face",
         rating: 4.4,
         reviews: 115,
@@ -184,7 +184,7 @@ export const products: Product[] = [
         id: "glitter-face-003",
         name: "Glow Primer Serum",
         price: 42.00,
-        image: "/images/products/primer.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Face",
         rating: 4.8,
         reviews: 256,
@@ -197,7 +197,7 @@ export const products: Product[] = [
         id: "glitter-face-004",
         name: "Bronzed Beauty Drops",
         price: 36.00,
-        image: "/images/products/bronzer.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Face",
         rating: 4.7,
         reviews: 145,
@@ -305,42 +305,42 @@ export const collectionsData = {
     "party": {
         title: "Party Collection",
         description: "Be the life of the party with high-impact glitters that never fade.",
-        image: "/images/collections/party.jpg"
+        image: "/images/collections/party.png"
     },
     "bridal": {
         title: "Bridal Collection",
         description: "Soft, romantic shimmer for your special day.",
-        image: "/images/collections/bridal.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     },
     "night": {
         title: "Night Glam",
         description: "Bold, dramatic looks for the ultimate night out.",
-        image: "/images/collections/night.jpg"
+        image: "/images/collections/night.png"
     },
     "new-arrivals": {
         title: "New Arrivals",
         description: "The latest luxury drops. Be the first to shine.",
-        image: "/images/collections/new.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     },
     "eyes": {
         title: "Eye Makeup",
         description: "Captivate with our range of glitter eyeshadows and liners.",
-        image: "/images/collections/eyes-hero.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     },
     "lips": {
         title: "Lip Products",
         description: "Lustrous glosses and shimmering lipsticks.",
-        image: "/images/collections/lips-hero.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     },
     "face": {
         title: "Face Products",
         description: "Illuminate your complexion with our highlighters and sprays.",
-        image: "/images/collections/face-hero.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     },
     "default": {
         title: "Collection",
         description: "Explore our premium range of glitter cosmetics.",
-        image: "/images/hero/hero-bg.jpg"
+        image: "/images/hero/hero_glitter_hero_01.png"
     }
 };
 

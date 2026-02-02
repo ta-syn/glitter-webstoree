@@ -77,19 +77,19 @@ export const collections = [
     {
         title: "Party Glam",
         description: "Stand out at every celebration with our high-impact glitters.",
-        image: "/images/collections/party.jpg",
+        image: "/images/collections/party.png",
         link: "/collections/party",
     },
     {
         title: "Bridal Elegance",
         description: "Subtle, romantic shimmer for your special day.",
-        image: "/images/collections/bridal.jpg",
+        image: "/images/hero/hero_glitter_hero_01.png",
         link: "/collections/bridal",
     },
     {
         title: "Night Out Luxe",
         description: "Bold, dramatic looks that own the night.",
-        image: "/images/collections/night.jpg",
+        image: "/images/collections/night.png",
         link: "/collections/night",
     },
 ];

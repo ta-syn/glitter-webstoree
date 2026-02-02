@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         siteName: "Glitter Cosmetics",
         images: [
             {
-                url: "/images/og-image.jpg", // Placeholder
+                url: "/images/hero/hero_glitter_hero_01.png",
                 width: 1200,
                 height: 630,
                 alt: "Glitter Luxury Cosmetics",
@@ -55,13 +55,11 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Glitter - Luxury Cosmetics",
         description: "Experience the ultimate luxury in glitter cosmetics.",
-        images: ["/images/og-image.jpg"],
+        images: ["/images/hero/hero_glitter_hero_01.png"],
         creator: "@glittercosmetics",
     },
     icons: {
-        icon: "/favicon.ico",
-        shortcut: "/favicon-16x16.png",
-        apple: "/apple-touch-icon.png",
+        icon: "/images/hero/hero_glitter_hero_01.png", // Fallback for now
     },
     robots: {
         index: true,

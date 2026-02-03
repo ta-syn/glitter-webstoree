@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Product } from '@/types';
+import { getProductById } from '@/lib/data/products';
 
 interface CartItem extends Product {
     quantity: number;
@@ -29,7 +30,50 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const savedCart = localStorage.getItem('glitter_cart');
         if (savedCart) {
             try {
-                setCartItems(JSON.parse(savedCart));
+                const parsedCart: CartItem[] = JSON.parse(savedCart);
+
+                const idMapping: { [key: string]: string } = {
+                    "glitter-gold-001": "glitter-eyes-001",
+                    "face-glitter-001": "glitter-face-001",
+                    "lib-001": "glitter-lips-001",
+                    "tools-001": "glitter-tools-001",
+                };
+
+                const migratedItemsMap = new Map<string, CartItem>();
+
+                parsedCart.forEach((item: CartItem) => {
+                    const newId = idMapping[item.id] || item.id;
+                    const freshProduct = getProductById(newId); // Get fresh product data for the new ID
+
+                    let targetItem: CartItem;
+                    if (freshProduct) {
+                        // Merge existing item data with fresh product data, prioritizing fresh product details
+                        // but keeping original quantity and selectedVariant
+                        targetItem = {
+                            ...freshProduct, // All properties from the fresh product
+                            ...item,        // Override with item's specific properties if they exist (like name, price if different)
+                            id: newId,      // Ensure the new ID is set
+                            quantity: item.quantity,
+                            selectedVariant: item.selectedVariant
+                        };
+                    } else {
+                        // If product not found, keep original item but update ID if mapped
+                        targetItem = { ...item, id: newId };
+                    }
+
+                    const itemKey = `${targetItem.id}-${targetItem.selectedVariant || 'default'}`;
+                    const existing = migratedItemsMap.get(itemKey);
+
+                    if (existing) {
+                        existing.quantity += targetItem.quantity;
+                    } else {
+                        migratedItemsMap.set(itemKey, { ...targetItem });
+                    }
+                });
+
+                const migratedItems = Array.from(migratedItemsMap.values());
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                setCartItems(migratedItems);
             } catch (e) {
                 console.error('Failed to parse cart from localStorage', e);
             }

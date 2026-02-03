@@ -25,10 +25,21 @@ const categories: FilterOption[] = [
     { id: "tools", label: "Tools" },
 ];
 
-export default function FilterSidebar() {
-    const [selectedCategories, setSelectedCategories] = React.useState<string[]>([]);
-    const [selectedPrice, setSelectedPrice] = React.useState<string | null>(null);
+interface FilterSidebarProps {
+    selectedCategories: string[];
+    setSelectedCategories: (categories: string[]) => void;
+    selectedPrice: string | null;
+    setSelectedPrice: (price: string | null) => void;
+    onClearAll: () => void;
+}
 
+export default function FilterSidebar({
+    selectedCategories,
+    setSelectedCategories,
+    selectedPrice,
+    setSelectedPrice,
+    onClearAll
+}: FilterSidebarProps) {
     const toggleCategory = (id: string) => {
         if (selectedCategories.includes(id)) {
             setSelectedCategories(selectedCategories.filter(c => c !== id));
@@ -84,7 +95,7 @@ export default function FilterSidebar() {
                                 <div className={cn(
                                     "w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
                                     selectedPrice === range.id
-                                        ? "border-dark-luxury"
+                                        ? "border-dark-luxury ring-1 ring-dark-luxury"
                                         : "border-gray-300 group-hover:border-champagne-gold"
                                 )}>
                                     {selectedPrice === range.id && <div className="w-2.5 h-2.5 rounded-full bg-dark-luxury" />}
@@ -103,7 +114,15 @@ export default function FilterSidebar() {
 
             <div className="h-px bg-champagne-gold/20" />
 
-            <Button variant="outline" className="w-full text-xs">Clear All Filters</Button>
+            {(selectedCategories.length > 0 || selectedPrice) && (
+                <Button
+                    variant="outline"
+                    className="w-full text-xs font-bold text-dark-luxury hover:bg-dark-luxury hover:text-white transition-all duration-300"
+                    onClick={onClearAll}
+                >
+                    Clear All Filters
+                </Button>
+            )}
         </div>
     );
 }

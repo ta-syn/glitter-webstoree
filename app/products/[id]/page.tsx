@@ -1,7 +1,7 @@
 import * as React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { featuredProducts } from "@/lib/data/mockData";
+import { products as featuredProducts, getProductById } from "@/lib/data/products";
 import ProductSchema from "@/components/seo/ProductSchema";
 import ClientProductPage from "./ClientProductPage";
 
@@ -11,7 +11,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { id } = await params;
-    const product = featuredProducts.find(p => p.id === id);
+    const product = getProductById(id);
     if (!product) return { title: "Product Not Found" };
 
     return {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
     const { id } = await params;
-    const product = featuredProducts.find((p) => p.id === id);
+    const product = getProductById(id);
 
     if (!product) {
         notFound();

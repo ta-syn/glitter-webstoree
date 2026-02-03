@@ -3,7 +3,7 @@
 import * as React from "react";
 import ProductGrid from "@/components/products/ProductGrid";
 import { Button } from "@/components/ui/Button";
-import { featuredProducts } from "@/lib/data/mockData";
+import { featuredProducts } from "@/lib/data/products";
 import Link from "next/link";
 import FadeInOnScroll from "@/components/animations/FadeInOnScroll";
 

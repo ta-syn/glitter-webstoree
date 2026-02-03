@@ -87,8 +87,15 @@ export default function GlitterParticles({
         };
 
         const initParticles = () => {
+            // Check for reduced motion preference
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (prefersReducedMotion) return;
+
             particles = [];
-            const particleCount = (canvas.clientWidth * canvas.clientHeight) / 10000 * (density / 10);
+            // Cap density calculation to avoid crushing performance on high-res monitors
+            const rawCount = (canvas.clientWidth * canvas.clientHeight) / 10000 * (density / 10);
+            const particleCount = Math.min(rawCount, 150); // Hard cap at 150 particles
+
             for (let i = 0; i < particleCount; i++) {
                 particles.push(createParticle());
             }

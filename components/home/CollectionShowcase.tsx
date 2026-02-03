@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { collections } from "@/lib/data/mockData";
+import { collections } from "@/lib/data/products";
 import FadeInOnScroll from "@/components/animations/FadeInOnScroll";
 
 export default function CollectionShowcase() {

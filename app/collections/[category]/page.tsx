@@ -33,6 +33,8 @@ export default async function CollectionPage({ params }: PageProps) {
     if (category !== 'all') {
         if (category === 'new-arrivals') {
             filteredProducts = products.filter(p => p.isNew);
+        } else if (category === 'best-sellers') {
+            filteredProducts = products.filter(p => (p.reviews && p.reviews > 100) || (p.rating && p.rating >= 4.8));
         } else if (category === 'party' || category === 'bridal' || category === 'night') {
             // Mock logic: randomly select some products for these thematic collections
             // In a real app, products would have 'collections' tag
@@ -63,6 +65,7 @@ export async function generateStaticParams() {
         { category: "lips" },
         { category: "face" },
         { category: "new-arrivals" },
+        { category: "best-sellers" },
         { category: "party" },
         { category: "bridal" },
         { category: "night" },

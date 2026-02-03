@@ -3,8 +3,6 @@
 import * as React from "react";
 import { Product } from "@/types";
 import ProductCard from "./ProductCard";
-import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 
 interface ProductGridProps {
     products: Product[];
@@ -33,33 +31,16 @@ export default function ProductGrid({ products, isLoading = false }: ProductGrid
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center">
                 <p className="font-heading text-2xl text-dark-luxury mb-2">No products found</p>
-                <p className="text-warm-gray mb-6">Try adjusting your filters or search criteria.</p>
-                <Button variant="outline">Clear Filters</Button>
+                <p className="text-warm-gray">Try adjusting your filters or search criteria.</p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6">
-            {/* Filter & Sort Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-champagne-gold/20">
-                <p className="text-sm text-warm-gray">Showing {products.length} results</p>
-                <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" className="gap-2">
-                        <SlidersHorizontal size={16} /> Filter
-                    </Button>
-                    <Button variant="ghost" size="sm" className="gap-2">
-                        <ArrowUpDown size={16} /> Sort
-                    </Button>
-                </div>
-            </div>
-
-            {/* Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6">
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6">
+            {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+            ))}
         </div>
     );
 }

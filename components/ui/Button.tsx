@@ -11,7 +11,7 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                primary: "bg-champagne-gold text-dark-luxury hover:bg-champagne-gold-dark shadow-luxury text-white", // Adjusted for contrast
+                primary: "bg-champagne-gold text-dark-luxury hover:bg-champagne-gold-dark shadow-luxury", // Verified contrast: Black on Gold is accessible
                 secondary: "bg-dark-luxury text-white hover:bg-black",
                 outline: "border border-dark-luxury bg-transparent hover:bg-dark-luxury hover:text-white",
                 ghost: "hover:bg-gray-100 hover:text-dark-luxury",

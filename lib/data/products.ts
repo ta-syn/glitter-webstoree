@@ -3,7 +3,8 @@ import { Product } from "@/types";
 export const products: Product[] = [
     // --- EYES ---
     {
-        id: "glitter-gold-001",
+        id: "glitter-eyes-001",
+        aliasId: "1",
         name: "Golden Hour Shimmer Pot",
         price: 32.00,
         image: "/images/products/product_glitter_gold_01.png",
@@ -19,6 +20,7 @@ export const products: Product[] = [
     },
     {
         id: "glitter-eyes-002",
+        aliasId: "4",
         name: "Midnight Sparkle Palette",
         price: 58.00,
         image: "/images/products/product_glitter_gold_01.png",
@@ -33,6 +35,7 @@ export const products: Product[] = [
     },
     {
         id: "glitter-eyes-003",
+        aliasId: "6",
         name: "Champagne Pop Gel",
         price: 22.00,
         image: "/images/products/product_glitter_silver_03.png",
@@ -88,6 +91,7 @@ export const products: Product[] = [
     // --- LIPS ---
     {
         id: "glitter-lips-001",
+        aliasId: "2",
         name: "Rose Quartz Lustre Lip",
         price: 28.00,
         salePrice: 24.00,
@@ -104,6 +108,7 @@ export const products: Product[] = [
     },
     {
         id: "glitter-lips-002",
+        aliasId: "7",
         name: "Crystal Clear Gloss",
         price: 26.00,
         image: "/images/products/product_glitter_rose_02.png",
@@ -157,6 +162,7 @@ export const products: Product[] = [
     // --- FACE ---
     {
         id: "glitter-face-001",
+        aliasId: "5",
         name: "Diamond Dust Highlighter",
         price: 38.00,
         image: "/images/products/product_glitter_gold_01.png",
@@ -210,9 +216,10 @@ export const products: Product[] = [
     // --- BODY ---
     {
         id: "glitter-body-001",
+        aliasId: "3",
         name: "Starlight Body Glitter",
         price: 45.00,
-        image: "/images/products/body-glitter.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Body",
         rating: 4.7,
         reviews: 88,
@@ -224,7 +231,7 @@ export const products: Product[] = [
         id: "glitter-body-002",
         name: "Bronze Goddess Oil",
         price: 42.00,
-        image: "/images/products/oil.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Body",
         rating: 4.9,
         reviews: 312,
@@ -237,7 +244,7 @@ export const products: Product[] = [
         id: "glitter-body-003",
         name: "Shimmer Body Lotion",
         price: 28.00,
-        image: "/images/products/lotion.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Body",
         rating: 4.5,
         reviews: 95,
@@ -249,7 +256,7 @@ export const products: Product[] = [
         id: "glitter-body-004",
         name: "Festival Chunky Glitter",
         price: 15.00,
-        image: "/images/products/chunky-glitter.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Body",
         rating: 4.3,
         reviews: 45,
@@ -262,11 +269,12 @@ export const products: Product[] = [
     // --- TOOLS ---
     {
         id: "glitter-tools-001",
+        aliasId: "8",
         name: "Gilded Brush Set",
         price: 65.00,
         salePrice: 50.00,
         onSale: true,
-        image: "/images/products/brushes.jpg",
+        image: "/images/products/product_glitter_gold_01.png",
         category: "Tools",
         rating: 4.9,
         reviews: 178,
@@ -278,7 +286,7 @@ export const products: Product[] = [
         id: "glitter-tools-002",
         name: "Precision Glitter Glue",
         price: 18.00,
-        image: "/images/products/glue.jpg",
+        image: "/images/products/product_glitter_silver_03.png",
         category: "Tools",
         rating: 4.6,
         reviews: 230,
@@ -290,7 +298,7 @@ export const products: Product[] = [
         id: "glitter-tools-003",
         name: "Luxury Makeup Bag",
         price: 40.00,
-        image: "/images/products/bag.jpg",
+        image: "/images/products/product_glitter_rose_02.png",
         category: "Tools",
         rating: 4.8,
         reviews: 65,
@@ -322,6 +330,11 @@ export const collectionsData = {
         description: "The latest luxury drops. Be the first to shine.",
         image: "/images/hero/hero_glitter_hero_01.png"
     },
+    "best-sellers": {
+        title: "Best Sellers",
+        description: "Our most coveted beauty icons.",
+        image: "/images/hero/hero_glitter_hero_01.png"
+    },
     "eyes": {
         title: "Eye Makeup",
         description: "Captivate with our range of glitter eyeshadows and liners.",
@@ -343,6 +356,27 @@ export const collectionsData = {
         image: "/images/hero/hero_glitter_hero_01.png"
     }
 };
+
+export const collections = [
+    {
+        title: collectionsData.party.title,
+        description: collectionsData.party.description,
+        image: collectionsData.party.image,
+        link: "/collections/party"
+    },
+    {
+        title: collectionsData.bridal.title,
+        description: collectionsData.bridal.description,
+        image: collectionsData.bridal.image,
+        link: "/collections/bridal"
+    },
+    {
+        title: collectionsData.night.title,
+        description: collectionsData.night.description,
+        image: collectionsData.night.image,
+        link: "/collections/night"
+    }
+];
 
 export const testimonials = [
     {
@@ -378,7 +412,7 @@ export const testimonials = [
 // --- HELPER FUNCTIONS ---
 
 export function getProductById(id: string): Product | undefined {
-    return products.find(product => product.id === id);
+    return products.find(product => product.id === id || product.aliasId === id);
 }
 
 export function getProductsByCategory(category: string): Product[] {
@@ -399,3 +433,5 @@ export function getRelatedProducts(currentProductId: string, category: string): 
 export function getNewArrivals(): Product[] {
     return products.filter(product => product.isNew).slice(0, 4);
 }
+
+export const featuredProducts = getFeaturedProducts();

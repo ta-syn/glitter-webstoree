@@ -4,11 +4,14 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, User, Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { useCart } from "@/context/CartContext";
+import { products as featuredProducts } from "@/lib/data/products";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -23,8 +26,27 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+    const [searchQuery, setSearchQuery] = React.useState("");
     const { cartCount } = useCart();
     const pathname = usePathname();
+    const router = useRouter();
+
+    const searchResults = React.useMemo(() => {
+        if (!searchQuery.trim()) return [];
+        return featuredProducts.filter(product =>
+            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.category.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 4);
+    }, [searchQuery]);
+
+    const handleSearchSubmit = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+            setIsSearchOpen(false);
+            setSearchQuery("");
+        }
+    };
 
     // Scroll detection
     React.useEffect(() => {
@@ -224,9 +246,11 @@ export default function Header() {
                             </nav>
 
                             <div className="p-6 bg-light-gray/50 border-t border-champagne-gold/20 space-y-4">
-                                <Button variant="outline" className="w-full justify-start gap-3">
-                                    <User size={18} /> My Account
-                                </Button>
+                                <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <Button variant="outline" className="w-full justify-start gap-3">
+                                        <User size={18} /> My Account
+                                    </Button>
+                                </Link>
                             </div>
                         </motion.div>
                     </>
@@ -253,30 +277,100 @@ export default function Header() {
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.1 }}
-                            className="w-full max-w-2xl text-center space-y-8"
+                            className="w-full max-w-4xl text-center space-y-8"
                         >
                             <h2 className="font-heading text-3xl md:text-4xl text-dark-luxury">What are you looking for?</h2>
-                            <div className="relative">
+                            <form onSubmit={handleSearchSubmit} className="relative">
                                 <input
                                     type="text"
                                     placeholder="Search products, collections..."
                                     className="w-full bg-transparent border-b-2 border-gray-200 py-4 text-2xl md:text-3xl placeholder-gray-300 focus:outline-none focus:border-champagne-gold transition-colors text-center"
                                     autoFocus
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                 />
-                                <Button className="absolute right-0 top-1/2 -translate-y-1/2 p-2" variant="ghost">
+                                <Button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2 p-2" variant="ghost">
                                     <Search size={24} />
                                 </Button>
-                            </div>
+                            </form>
 
-                            <div className="pt-8">
-                                <p className="text-sm text-gray-500 uppercase tracking-widest mb-4">Popular Searches</p>
-                                <div className="flex flex-wrap justify-center gap-3">
-                                    {["Glitter Gel", "Gold Palette", "Shimmer Lip Gloss", "Bridal Collection"].map((term) => (
-                                        <Badge key={term} variant="outline" className="cursor-pointer hover:bg-champagne-gold/10 px-4 py-2">
-                                            {term}
-                                        </Badge>
-                                    ))}
-                                </div>
+                            <div className="min-h-[300px]">
+                                <AnimatePresence mode="wait">
+                                    {searchQuery.trim() === "" ? (
+                                        <motion.div
+                                            key="popular"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="pt-8"
+                                        >
+                                            <p className="text-sm text-gray-500 uppercase tracking-widest mb-4">Popular Searches</p>
+                                            <div className="flex flex-wrap justify-center gap-3">
+                                                {["Glitter Gel", "Gold Palette", "Shimmer Lip Gloss", "Bridal Collection"].map((term) => (
+                                                    <Badge
+                                                        key={term}
+                                                        variant="outline"
+                                                        className="cursor-pointer hover:bg-champagne-gold/10 px-4 py-2 transition-all"
+                                                        onClick={() => setSearchQuery(term)}
+                                                    >
+                                                        {term}
+                                                    </Badge>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    ) : searchResults.length > 0 ? (
+                                        <motion.div
+                                            key="results"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0 }}
+                                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-8"
+                                        >
+                                            {searchResults.map((product) => (
+                                                <Link
+                                                    key={product.id}
+                                                    href={`/products/${product.id}`}
+                                                    onClick={() => setIsSearchOpen(false)}
+                                                    className="group flex flex-col items-center text-center space-y-3"
+                                                >
+                                                    <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-100 group-hover:shadow-luxury-md transition-all duration-500">
+                                                        <Image
+                                                            src={product.image}
+                                                            alt={product.name}
+                                                            fill
+                                                            className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs text-champagne-gold-dark font-bold uppercase tracking-widest mb-1">{product.category}</p>
+                                                        <h3 className="font-heading text-lg font-bold text-dark-luxury group-hover:text-champagne-gold transition-colors">{product.name}</h3>
+                                                        <p className="font-bold text-dark-luxury">${product.price.toFixed(2)}</p>
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                            <div className="col-span-full pt-4">
+                                                <Button
+                                                    variant="link"
+                                                    className="text-dark-luxury hover:text-champagne-gold font-bold uppercase tracking-widest text-sm"
+                                                    onClick={() => handleSearchSubmit()}
+                                                >
+                                                    View all results <ArrowRight size={16} className="ml-2" />
+                                                </Button>
+                                            </div>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="no-results"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="pt-20 text-gray-400"
+                                        >
+                                            <p className="text-xl">No products found for &quot;{searchQuery}&quot;</p>
+                                            <p className="text-sm mt-2">Try searching for something else or browse our collections.</p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </motion.div>
                     </motion.div>

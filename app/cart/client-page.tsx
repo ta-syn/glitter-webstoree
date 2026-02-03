@@ -7,13 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Plus, Trash2, ArrowLeft, ShieldCheck, Tag, Check, ShoppingBag, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { featuredProducts } from "@/lib/data/mockData";
+import { products as featuredProducts } from "@/lib/data/products";
 import ProductGrid from "@/components/products/ProductGrid";
 import FadeInOnScroll from "@/components/animations/FadeInOnScroll";
 import { useCart } from "@/context/CartContext";
 
 export default function ClientCartPage() {
-    const { cartItems, updateQuantity, removeItem, cartTotal: subtotal } = useCart();
+    const { cartItems, updateQuantity, removeItem, cartTotal: subtotal, cartCount } = useCart();
     const [discountCode, setDiscountCode] = React.useState("");
     const [isApplyingCode, setIsApplyingCode] = React.useState(false);
     const [discountApplied, setDiscountApplied] = React.useState(false);
@@ -94,7 +94,7 @@ export default function ClientCartPage() {
                         Shopping Cart
                     </h1>
                     <p className="text-warm-gray text-lg">
-                        {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} ready to sparkle
+                        {cartCount} {cartCount === 1 ? 'item' : 'items'} ready to sparkle
                     </p>
                 </motion.div>
 
@@ -129,6 +129,7 @@ export default function ClientCartPage() {
                                                     src={item.image}
                                                     alt={item.name}
                                                     fill
+                                                    sizes="(max-width: 768px) 100vw, 128px"
                                                     className="object-cover group-hover/image:scale-105 transition-transform duration-500"
                                                 />
                                                 {item.onSale && (
@@ -334,12 +335,14 @@ export default function ClientCartPage() {
                             </form>
 
                             {/* Checkout Button */}
-                            <Button
-                                size="lg"
-                                className="w-full h-14 text-lg shadow-luxury-glow mb-6 font-bold"
-                            >
-                                Proceed to Checkout
-                            </Button>
+                            <Link href="/checkout">
+                                <Button
+                                    size="lg"
+                                    className="w-full h-14 text-lg shadow-luxury-glow mb-6 font-bold"
+                                >
+                                    Proceed to Checkout
+                                </Button>
+                            </Link>
 
                             {/* Trust Badges */}
                             <div className="space-y-3 text-center">

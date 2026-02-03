@@ -6,6 +6,7 @@ import SkipToContent from "@/components/layout/SkipToContent";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -84,11 +85,13 @@ export default function RootLayout({
             <body className="font-body bg-pearl-white text-dark-luxury antialiased">
                 <SkipToContent />
                 <CartProvider>
-                    <Header />
-                    <main id="main-content">
-                        {children}
-                    </main>
-                    <Footer />
+                    <WishlistProvider>
+                        <Header />
+                        <main id="main-content">
+                            {children}
+                        </main>
+                        <Footer />
+                    </WishlistProvider>
                 </CartProvider>
             </body>
         </html>

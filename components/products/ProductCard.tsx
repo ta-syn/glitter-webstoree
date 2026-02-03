@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 interface ProductCardProps {
     product: Product;
@@ -20,6 +21,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     const [isHovered, setIsHovered] = React.useState(false);
     const [isAdded, setIsAdded] = React.useState(false);
     const { addItem } = useCart();
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+    const isWishlisted = isInWishlist(product.id);
 
     const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -27,6 +30,16 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         addItem(product);
         setIsAdded(true);
         setTimeout(() => setIsAdded(false), 2000);
+    };
+
+    const handleToggleWishlist = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (isWishlisted) {
+            removeFromWishlist(product.id);
+        } else {
+            addToWishlist(product);
+        }
     };
 
     return (
@@ -58,10 +71,16 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 
                 {/* Wishlist Button */}
                 <button
-                    className="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/80 backdrop-blur-sm text-dark-luxury hover:bg-champagne-gold hover:text-white transition-colors duration-300 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
-                    aria-label="Add to wishlist"
+                    onClick={handleToggleWishlist}
+                    className={cn(
+                        "absolute top-3 right-3 z-20 p-2 rounded-full backdrop-blur-sm transition-all duration-300 focus:opacity-100 focus:translate-x-0",
+                        isWishlisted
+                            ? "bg-champagne-gold text-white opacity-100 translate-x-0"
+                            : "bg-white/80 text-dark-luxury opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 hover:bg-champagne-gold hover:text-white"
+                    )}
+                    aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                 >
-                    <Heart size={18} />
+                    <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
                 </button>
 
                 {/* Quick View Overlay (Sparkle Effect) */}

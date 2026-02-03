@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Star, Quote } from "lucide-react";
-import { testimonials } from "@/lib/data/mockData";
+import { testimonials } from "@/lib/data/products";
 import FadeInOnScroll from "@/components/animations/FadeInOnScroll";
 
 export default function Testimonials() {
